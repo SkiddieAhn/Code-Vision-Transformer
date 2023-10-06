@@ -72,5 +72,5 @@ Most codes were obtained from the following Blog page: [[Link]](https://towardsd
 3. Resize the matrix to the original image size (32x32).  
 4. Perform min-max normalization on the matrix. (scaling values to range between 0 and 1) 
 5. Multiply the matrix with the original image. (incorporating the focused area into the original image)  
-6. Multiply the resulting matrix by 2 and visualize it (amplifying the representation of the focused area).  
+6. Multiply the resulting matrix by 2 and visualize it. (amplifying the representation of the focused area)
 ```
