@@ -1,5 +1,5 @@
 # Vision Transformer 
-Provide the ```PyTorch tutorial code``` for understanding ViT (Vision Transformer) models.
+Provide the ```PyTorch tutorial code``` for understanding ViT (Vision Transformer) model.
   
 Original paper: [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/pdf/2010.11929.pdf). *[ICLR 2021]*  
 Most codes were obtained from the following Blog page: [[Link]](https://towardsdatascience.com/implementing-visualttransformer-in-pytorch-184f9f16f632)
@@ -71,6 +71,6 @@ Most codes were obtained from the following Blog page: [[Link]](https://towardsd
 2. Convert the row vector (1x16) into a 2D matrix (4x4).  
 3. Resize the matrix to the original image size (32x32).  
 4. Perform min-max normalization on the matrix. (scaling values to range between 0 and 1) 
-5. Multiply the matrix with the original image and then add it to the original image. (incorporating the focused area into the original image)  
+5. Multiply the matrix with the original image. (incorporating the focused area into the original image)  
 6. Multiply the resulting matrix by 2 and visualize it (amplifying the representation of the focused area).  
 ```
