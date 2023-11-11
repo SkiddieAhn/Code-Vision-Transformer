@@ -18,49 +18,51 @@ Most codes were obtained from the following Blog page: [[Link]](https://towardsd
 
 ## Setting
 - **Model**  
-· patch size: 8x8  
-· embedding size: 128  
+· patch size: 4x4  
+· embedding size: 192  
 · num layers: 12  
 · num classes: 10  
-· num heads: 4
+· num heads: 12
 - **Training**   
 · batch size: 256  
-· num epoch: 100  
-· optimizer: SGD
+· num epoch: 50  
+· optimizer: Adam (lr=0.001, weight_decay=5e-5)  
+· data augmentation: RandomCrop(32, padding=4), RandomHorizontalFlip()
 
 ## Results
 - **Loss graph**  
-![vit_loss](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/460c3c82-afc0-4474-98e6-36f379dee1c8)   
-· To extract the best performance among 100 epochs, ```early stopping``` was employed.  
+![vit_loss](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/a44bb265-ef73-4671-91c5-d735a291db6c)   
+· To extract the best performance among 50 epochs, ```early stopping``` was employed.  
 · In this experiment, the validation set and the test set are the same.  
-· The best model can be confirmed through ```cifar_vit.pth```.  
+· The best model can be confirmed through ```weight/cifar_vit_pe_conv.pth```.  
 
-- **Accuracy**  
+- **Accuracy**
+    
+|ViT Basic    |ViT PE   |ViT PE & Conv   |
+|:-----------:|:-----------:|:-----------:|
+|75.03 %        |76.05 %        |  **78.55 %**        |    
 
-|     Accuracy                  |CIFAR-10    |
-|:------------------------:|:-----------:|
-| 10,000 test images  |57 %        |  
 
-· The ViT model requires more data compared to CNNs due to its ```lack of inductive bias```.  
-· The dataset used in the tutorial code is small in size, which resulted in lower performance.  
-· However, it is anticipated that performance improvements can be achieved by ```fine-tuning``` the model and utilizing ```data augmentation```.  
+· ```ViT Basic```: positional encoding with Training, patch embedding with FC layer.  
+· ```ViT PE```: positional encoding without Training, patch embedding with FC layer.  
+· ```ViT PE & Conv```: position encoding without Training, patch embedding with Conv2d.  
 
 - **Visualization**
   
+| ship                                                                             |
+|----------------------------------------------------------------------------------------------------------------------|
+|![ship](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/420e7559-6bac-4cea-92b1-73f0858020ab) |
+| focused on the ```ship's anchor``` and predicted the image to be a ship. |
+
 | bird                                                                             |
 |----------------------------------------------------------------------------------------------------------------------|
-|![bird](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/be08d88a-7a38-4845-8fd2-abcff43499fc) |
-| focused on  ```bird's abdomen and tail area``` and predicted the image to be a bird. |
+|![bird](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/1364736c-6108-4a48-985e-2383db216844) |
+| focused on  ```all area of bird and branch``` and predicted the image to be a bird. |
 
 | horse                                                                             |
 |----------------------------------------------------------------------------------------------------------------------|
-|![horse](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/78ef80b4-7656-4c48-b9bd-10ac7c16afbb) |
-| focused on the ```horse's front leg area``` and predicted the image to be a horse. |
-
-| ship                                                                             |
-|----------------------------------------------------------------------------------------------------------------------|
-|![ship](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/e35848ea-5059-4de9-aafb-4c2c029cb5d3) |
-| focused on the ```ship's bottom and sea area rather than sky``` and predicted the image to be a ship. |
+|![horse](https://github.com/SkiddieAhn/SkiddieAhn/assets/52392658/99064450-af68-4236-af4b-c28f1dcfe05d) |
+| focused on the ```horse's stomach, hind legs and tail``` and predicted the image to be a horse. |
 
 ## How to Visualize the Image?
 - The attention map's row vector corresponding to the ```cls token``` was utilized.  
@@ -68,7 +70,7 @@ Most codes were obtained from the following Blog page: [[Link]](https://towardsd
 - For dramatic visualization, the following steps were employed:
 ```
 1. Create a single row vector by averaging 'num_head' row vectors. (using average attention weights)  
-2. Convert the row vector (1x16) into a 2D matrix (4x4).  
+2. Convert the row vector (1x64) into a 2D matrix (8x8).  
 3. Resize the matrix to the original image size (32x32).  
 4. Perform min-max normalization on the matrix. (scaling values to range between 0 and 1) 
 5. Multiply the matrix with the original image. (incorporating the focused area into the original image)  
