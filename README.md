@@ -76,3 +76,5 @@ Most codes were obtained from the following Blog page: [[Link]](https://towardsd
 5. Multiply the matrix with the original image. (incorporating the focused area into the original image)  
 6. Multiply the resulting matrix by 2 and visualize it. (amplifying the representation of the focused area)
 ```
+## 📖 Lecture Note
+* <strong>ViT lecture note</strong>: [[Link](https://shacoding.com/2023/11/24/%ec%bd%94%eb%94%a9-%ec%8b%a4%ec%8a%b5-vision-transformer/)] (23.11.16)
